@@ -11,6 +11,7 @@
                  [com.troy-west/arche-integrant "0.4.2"]
                  [com.troy-west/thimble-all "0.1.9"]
 
+                 [cheshire "5.8.0"]
                  [clj-time "0.14.3"]
                  [metrics-clojure "2.10.0" :exclusions [org.clojure/clojure]]
                  [metrics-clojure-riemann "2.10.0" :exclusions [org.clojure/clojure]]
