@@ -10,7 +10,8 @@
               (reify ForeachAction
                 (apply [_ _ text]
                   (message/digest connection text))))
-    (let [k-stream (KafkaStreams. (.build builder) (StreamsConfig. stream-config))]
+    (let [k-stream (KafkaStreams. (.build builder)
+                                  (StreamsConfig. stream-config))]
       (.start k-stream)
       k-stream)))
 

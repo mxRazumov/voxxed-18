@@ -26,19 +26,21 @@
 (defn find-word
   [connection sender word start end]
   (let [out (async/chan default-parallelism)]
-    (async/pipeline-async default-parallelism
-                          out
-                          #(arche.async/execute connection
-                                                :subject/read-word
-                                                {:values  %1
-                                                 :channel %2})
-                          (async/to-chan (queries sender word start end)))
+    (async/pipeline-async
+     default-parallelism
+     out
+     #(arche.async/execute connection
+                           :subject/read-word
+                           {:values  %1
+                            :channel %2})
+     (async/to-chan (queries sender word start end)))
     out))
 
 (defn find-words
   [connection sender date]
-  (arche/execute connection
-                 :subject/read-words
-                 {:values {:sender    sender
-                           :partition (message/partition
-                                       (time.coerce/to-date-time date))}}))
+  (arche/execute
+   connection
+   :subject/read-words
+   {:values {:sender    sender
+             :partition (message/partition
+                         (time.coerce/to-date-time date))}}))

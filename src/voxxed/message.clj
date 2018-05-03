@@ -30,12 +30,13 @@
 
       ;; write subject indexes for every token found
       (doseq [token (subject-tokens subject)]
-        (arche/execute connection
-                       :subject/write-word
-                       {:values {:partition  (partition (time.coerce/to-date-time date))
-                                 :sender     from
-                                 :word       token
-                                 :message-id message-id}})))
+        (arche/execute
+         connection
+         :subject/write-word
+         {:values {:partition  (partition (time.coerce/to-date-time date))
+                   :sender     from
+                   :word       token
+                   :message-id message-id}})))
 
     (catch Throwable thr
       (log/error thr))))
