@@ -21,6 +21,7 @@ then start a REPL and:
 (system/initialize)
 
 ;; require kafka ns and load data
+
 (require '[voxxed.kafka :as kafka])
 
 (kafka/send-seq (:thimble/kafka.producer @system/state) "voxxed" messages)
@@ -29,7 +30,11 @@ then start a REPL and:
 
 (require '[voxxed.query :as query])
 
+;; load a day of subject index
+
 (query/find-words (:arche/connection @system/state) "mark" "1998-12-02T")
+
+;; load a time series of subject index
 
 (async/<!!
  (async/into []
