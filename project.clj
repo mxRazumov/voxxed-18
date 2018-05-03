@@ -10,6 +10,7 @@
                  [com.troy-west/arche-hugcql "0.4.2" :exclusions [org.clojure/tools.reader]]
                  [com.troy-west/arche-integrant "0.4.2"]
                  [com.troy-west/thimble-all "0.1.9"]
+                 [cc.qbits/alia-joda-time "4.1.1" :exclusions [joda-time]]
 
                  [cheshire "5.8.0"]
                  [clj-time "0.14.3"]

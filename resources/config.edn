@@ -1,0 +1,26 @@
+{:thimble/zookeeper.server  {}
+
+ :thimble/kafka.broker      {:zookeeper #ig/ref :thimble/zookeeper.server
+                             :topics    ["voxxed"]}
+
+ :thimble/kafka.producer    {:broker #ig/ref :thimble/kafka.broker}
+
+ :thimble/cassandra.cluster {:name        "voxxed"
+                             :schema-cqls ["cql/schema.cql"]}
+
+ :arche/cluster             #ig/ref :thimble/cassandra.cluster
+
+ :arche/connection          {:cluster    #ig/ref :arche/cluster
+                             :keyspace   "sandbox"
+                             :statements [#arche/hugcql "cql/voxxed.hcql"]}
+
+ :voxxed/stream             {:topic         "voxxed"
+                             :connection    #ig/ref :arche/connection
+                             :stream-config {"application.id"     "voxxed-18-compute"
+                                             "bootstrap.servers"  "localhost:9092"
+                                             "key.serde"          "org.apache.kafka.common.serialization.Serdes$StringSerde"
+                                             "value.serde"        "org.apache.kafka.common.serialization.Serdes$StringSerde"
+                                             "auto.offset.reset"  "earliest"
+                                             "replication.factor" "1"
+                                             "num.stream.threads" "4"}
+                             :producer      #ig/ref :thimble/kafka.producer}}

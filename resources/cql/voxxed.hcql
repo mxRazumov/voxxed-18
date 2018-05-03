@@ -1,0 +1,8 @@
+--:name subject/write-word
+INSERT INTO subject_idx (partition, sender, word, message_id) VALUES (:partition, :sender, :word, :message-id)
+
+--:name subject/read-words
+SELECT :i:message-id, word, sender from subject_idx where partition = :partition and sender = :sender
+
+--:name subject/read-word
+SELECT :i:message-id, word, sender from subject_idx where partition = :partition and sender = :sender and word = :word
